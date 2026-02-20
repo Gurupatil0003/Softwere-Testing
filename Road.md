@@ -1,266 +1,175 @@
-# 🎯 COMPLETE SYLLABUS: Selenium Automation with Python
+```python
 
----
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
+import time
 
-## 🟢 PHASE 1: Python Fundamentals (Very Important)
+# ---------------- FIXTURE ----------------
+@pytest.fixture
+def driver():
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service)
+    driver.maximize_window()
+    yield driver
+    time.sleep(3)
+    driver.quit()
 
-> Before Selenium, you must know Python basics.
+# ---------------- TEST CASE ----------------
+def test_saucedemo_order(driver):
+    
+    wait = WebDriverWait(driver, 10)
+
+    # Open website slowly
+    driver.get("https://www.saucedemo.com/")
+    time.sleep(3)
+
+    # Login
+    driver.find_element(By.ID, "user-name").send_keys("standard_user")
+    time.sleep(2)
+
+    driver.find_element(By.ID, "password").send_keys("secret_sauce")
+    time.sleep(2)
 
-### 📘 Module 1 – Python Basics
+    driver.find_element(By.ID, "login-button").click()
+    time.sleep(4)
+
+    print("✅ Login Successful")
+
+    # Add products slowly
+    driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
+    print("🛒 Backpack added")
+    time.sleep(3)
+
+    driver.find_element(By.ID, "add-to-cart-sauce-labs-bike-light").click()
+    print("🛒 Bike Light added")
+    time.sleep(3)
+
+    # Check cart count
+    cart_count = driver.find_element(By.CLASS_NAME, "shopping_cart_badge").text
+    print("Cart Count =", cart_count)
+    time.sleep(2)
+
+    assert cart_count == "1"
+
+    # Go to cart
+    driver.find_element(By.CLASS_NAME, "shopping_cart_link").click()
+    time.sleep(3)
+
+    # Checkout
+    driver.find_element(By.ID, "checkout").click()
+    time.sleep(3)
+
+    # Fill details slowly
+    driver.find_element(By.ID, "first-name").send_keys("Mounesh")
+    time.sleep(2)
+
+    driver.find_element(By.ID, "last-name").send_keys("Goud")
+    time.sleep(2)
 
-- Variables  
-- Data Types  
-  - int  
-  - float  
-  - string  
-  - list  
-  - tuple  
-  - dict  
-- Operators  
-- Conditional Statements (if / else)  
-- Loops (for, while)  
-- Functions  
-- Input / Output  
+    driver.find_element(By.ID, "postal-code").send_keys("560001")
+    time.sleep(2)
 
----
+    driver.find_element(By.ID, "continue").click()
+    time.sleep(4)
 
-### 📘 Module 2 – Intermediate Python
+    # Finish order
+    driver.find_element(By.ID, "finish").click()
+    time.sleep(4)
 
-- OOP Concepts  
-  - Class  
-  - Object  
-  - Constructor  
-- Exception Handling  
-- File Handling  
-- Modules & Packages  
-- Virtual Environments (venv)  
-- Pip & requirements.txt  
+    print("✅ Order Completed")
 
-✅ **Goal:** Be comfortable writing Python scripts  
+    # Assertion
+    success_text = driver.find_element(By.CLASS_NAME, "complete-header").text
+    assert "Thank you for your order!" in success_text
 
----
+    # Logout slowly
+    driver.find_element(By.ID, "react-burger-menu-btn").click()
+    time.sleep(3)
 
-## 🟢 PHASE 2: Software Testing Fundamentals
+    driver.find_element(By.ID, "logout_sidebar_link").click()
+    time.sleep(3)
 
-### 📘 Module 3 – Testing Basics
+    print("✅ Logged Out")
 
-- What is Software Testing?  
-- SDLC (Software Development Life Cycle)  
-- STLC (Software Testing Life Cycle)  
-- Types of Testing  
-  - Unit Testing  
-  - Integration Testing  
-  - System Testing  
-  - Regression Testing  
-  - Smoke Testing  
-- Manual vs Automation Testing  
-- Black Box vs White Box Testing  
+```
 
----
 
-### 📘 Module 4 – Test Documentation
+```python
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
 
-- Test Case Writing  
-- Test Scenario  
-- Bug Report Writing  
-- Severity vs Priority  
-- Agile Methodology  
-- Jira Basics  
+# ---------- FIXTURE FOR BROWSER SETUP & TEARDOWN ----------
+@pytest.fixture
+def driver():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    yield driver
+    driver.quit()
 
----
 
-## 🟢 PHASE 3: Selenium WebDriver Basics (Core)
+# ---------- TEST CASE ----------
+def test_saucedemo_order(driver):
+    
+    # Open website
+    driver.get("https://www.saucedemo.com/")
+    time.sleep(2)
 
-### 📘 Module 5 – Selenium Introduction
+    # Login
+    driver.find_element(By.ID, "user-name").send_keys("standard_user")
+    driver.find_element(By.ID, "password").send_keys("secret_sauce")
+    driver.find_element(By.ID, "login-button").click()
+    time.sleep(2)
 
-- What is Selenium?  
-- WebDriver Architecture  
-- Browser Drivers  
-- Installing Selenium  
-- First Selenium Script  
+    print("✅ Logged in")
 
----
+    # Add products
+    driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
+    print("Added Backpack")
+    time.sleep(1)
 
-### 📘 Module 6 – Locators (Very Important)
+    driver.find_element(By.ID, "add-to-cart-sauce-labs-bike-light").click()
+    print("Added Bike Light")
+    time.sleep(1)
 
-- ID  
-- Name  
-- Class Name  
-- Tag Name  
-- Link Text  
-- XPath  
-- CSS Selector  
-- Writing Dynamic XPath  
+    # Go to cart
+    driver.find_element(By.CLASS_NAME, "shopping_cart_link").click()
+    time.sleep(2)
 
----
+    # Checkout
+    driver.find_element(By.ID, "checkout").click()
+    time.sleep(1)
 
-### 📘 Module 7 – Web Element Handling
+    # Fill details
+    driver.find_element(By.ID, "first-name").send_keys("Mounesh")
+    driver.find_element(By.ID, "last-name").send_keys("Goud")
+    driver.find_element(By.ID, "postal-code").send_keys("560001")
+    driver.find_element(By.ID, "continue").click()
+    time.sleep(2)
 
-- `send_keys()`  
-- `click()`  
-- `clear()`  
-- `get_text()`  
-- `is_displayed()`  
-- `is_enabled()`  
+    # Finish order
+    driver.find_element(By.ID, "finish").click()
+    time.sleep(2)
 
----
+    print("✅ Order Completed")
 
-### 📘 Module 8 – Waits
+    # Assertion (Very Important in PyTest)
+    success_text = driver.find_element(By.CLASS_NAME, "complete-header").text
+    assert "THANK YOU" in success_text
 
-- Implicit Wait  
-- Explicit Wait  
-- Fluent Wait  
-- Expected Conditions  
+    # Logout
+    driver.find_element(By.ID, "react-burger-menu-btn").click()
+    time.sleep(1)
+    driver.find_element(By.ID, "logout_sidebar_link").click()
 
----
+    print("✅ Logged Out")
 
-## 🟢 PHASE 4: Advanced Selenium
 
-### 📘 Module 9 – Handling Special Elements
 
-- Dropdown (Select Class)  
-- Alerts  
-- Frames / iFrames  
-- Windows / Tabs  
-- Actions Class  
-  - Mouse Hover  
-  - Drag & Drop  
-- Keyboard Actions  
-
----
-
-### 📘 Module 10 – Advanced Topics
-
-- JavaScript Execution  
-- Scrolling  
-- File Upload  
-- File Download Handling  
-- Cookies Handling  
-- Headless Browser Execution  
-
----
-
-## 🟢 PHASE 5: Test Framework (pytest)
-
-### 📘 Module 11 – pytest Basics
-
-- Installing pytest  
-- Writing Test Functions  
-- Running Tests  
-- pytest Fixtures  
-- Setup & Teardown  
-
----
-
-### 📘 Module 12 – Advanced pytest
-
-- Parameterization  
-- Markers  
-- Parallel Execution (pytest-xdist)  
-- HTML Reports  
-- Allure Reports  
-
----
-
-## 🟢 PHASE 6: Automation Framework Design
-
-### 📘 Module 13 – Page Object Model (POM)
-
-- Why POM?  
-- Creating Page Classes  
-- Separating Locators  
-- Reusable Methods  
-
----
-
-### 📘 Module 14 – Framework Structure
-
-- Project Folder Structure  
-- Config File Handling  
-- Logging  
-- Reading Test Data From  
-  - JSON  
-  - Excel  
-  - CSV  
-- Environment Handling (Dev / QA / Prod)  
-
----
-
-## 🟢 PHASE 7: API Automation (Important for Jobs)
-
-- Python `requests` Library  
-- HTTP Methods  
-  - GET  
-  - POST  
-  - PUT  
-  - DELETE  
-- Response Validation  
-- JSON Handling  
-- API + UI Combined Testing  
-
----
-
-## 🟢 PHASE 8: Database Testing Basics
-
-- SQL Basics  
-- Connecting Python to Database  
-- Verifying Data from DB  
-
----
-
-## 🟢 PHASE 9: Version Control & CI/CD
-
-### 📘 Module 15 – Git
-
-- git clone  
-- git add  
-- git commit  
-- git push  
-- git pull  
-- git branch  
-- git merge  
-
----
-
-### 📘 Module 16 – CI/CD
-
-- Jenkins Basics  
-- Running Automation from Jenkins  
-- Scheduling Builds  
-- Generating Reports  
-
----
-
-## 🟢 PHASE 10: Selenium Grid
-
-- What is Selenium Grid?  
-- Hub & Node Concept  
-- Running Tests in Parallel  
-- Cross-Browser Testing  
-
----
-
-## 🟢 PHASE 11: Real Projects
-
-You must build at least:
-
-1. Login Automation Project  
-2. E-commerce End-to-End Project  
-3. Data-Driven Testing Project  
-4. API + UI Combined Project  
-5. Mini Automation Framework  
-
----
-
-## 🟢 PHASE 12: Interview Preparation
-
-- Selenium Interview Questions  
-- pytest Questions  
-- Python OOP Questions  
-- Scenario-Based Questions  
-- Writing XPath in Interviews  
-- Debugging Automation Failures  
-
----
-
-⭐ **Tip:** This syllabus is job-ready and covers everything required for Automation Tester roles.
+```
