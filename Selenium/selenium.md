@@ -182,3 +182,69 @@ driver.quit()
 
 
 ```
+
+## Web Element Handling
+```python
+<!DOCTYPE html>
+<html>
+<head>
+<title>Web Element Handling Practice</title>
+</head>
+<body>
+
+<h2>Web Element Handling Demo</h2>
+
+<label>Username:</label>
+<input type="text" id="username"><br><br>
+
+<label>Password:</label>
+<input type="password" id="password"><br><br>
+
+<button id="loginBtn">Login</button>
+
+<p id="msg">Welcome Student!</p>
+
+</body>
+</html>
+
+```
+
+```python
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Chrome()
+driver.get("file:///C:/Users/LENOVO/Desktop/webelement_practice.html")
+time.sleep(2)
+
+# ---------------- send_keys() ----------------
+driver.find_element(By.ID, "username").send_keys("Guru")
+driver.find_element(By.ID, "password").send_keys("12345")
+
+time.sleep(2)
+
+# ---------------- clear() ----------------
+driver.find_element(By.ID, "password").clear()
+driver.find_element(By.ID, "password").send_keys("newpass")
+
+# ---------------- click() ----------------
+driver.find_element(By.ID, "loginBtn").click()
+
+# ---------------- get_text() ----------------
+text = driver.find_element(By.ID, "msg").text
+print("Message Text:", text)
+
+# ---------------- is_displayed() ----------------
+print("Username displayed:", driver.find_element(By.ID, "username").is_displayed())
+
+# ---------------- is_enabled() ----------------
+print("Login button enabled:", driver.find_element(By.ID, "loginBtn").is_enabled())
+
+time.sleep(5)
+driver.quit()
+
+
+
+```
