@@ -79,3 +79,37 @@ Firefox	GeckoDriver
 Edge	EdgeDriver
 Safari	SafariDriver
 ```
+
+
+```python
+import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
+
+# Fixture for initializing and quitting the driver
+@pytest.fixture
+def driver():
+    # Create a Service object with the path to chromedriver.exe
+    service = Service("chromedriver.exe")
+    driver = webdriver.Chrome(service=service)  # Pass Service object instead of executable_path
+    yield driver
+    driver.quit()
+
+# Test function
+def test_google_search(driver):
+    driver.get("https://www.google.com")
+    time.sleep(2)
+
+    search_box = driver.find_element(By.NAME, "q")
+    search_box.send_keys("Selenium Python tutorial")
+    search_box.send_keys(Keys.RETURN)
+
+    time.sleep(3)
+    print("Page Title:", driver.title)
+
+    # Simple pass assertion
+    assert True
+```
