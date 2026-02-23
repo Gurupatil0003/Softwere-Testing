@@ -161,3 +161,56 @@ A **bug report** is a document that records details of a defect found in the sof
 - Updating issue status
 - Adding comments and attachments
 - Generating reports and dashboards
+
+
+# Module 5 – Selenium Introduction
+
+## What is Selenium?
+**Selenium** is an open-source automation tool used for testing web applications across different browsers and platforms.  
+**Key features:**
+- Supports multiple programming languages (Python, Java, C#, etc.)
+- Works across major browsers (Chrome, Firefox, Edge, Safari)
+- Allows automation of repetitive web application tasks
+- Supports parallel test execution
+
+---
+
+## WebDriver Architecture
+Selenium WebDriver follows a client-server architecture:
+1. **Client Library** – Your test script written in Python, Java, or other supported languages.
+2. **JSON Wire Protocol** – Communication protocol between client and browser driver.
+3. **Browser Driver** – Translates commands from WebDriver to the browser.
+4. **Browser** – Executes the commands and returns the response to the client.
+
+**Flow:**
+Test Script → WebDriver API → Browser Driver → Browser → Response
+
+---
+
+## Browser Drivers
+Browser drivers are specific to each browser and are required for Selenium WebDriver to interact with them.  
+**Common browser drivers:**
+- **ChromeDriver** – For Google Chrome
+- **GeckoDriver** – For Mozilla Firefox
+- **EdgeDriver** – For Microsoft Edge
+- **SafariDriver** – For Safari
+
+**Note:** Make sure the driver version matches the browser version.
+
+---
+
+## Installing Selenium
+**Python Installation:**
+```bash
+pip install selenium
+```
+
+
+## example script
+
+```python
+
+
+
+
+```
