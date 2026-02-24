@@ -80,6 +80,30 @@ Edge	EdgeDriver
 Safari	SafariDriver
 ```
 
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
+
+# Initialize Chrome driver (no path needed if chromedriver is in PATH)
+driver = webdriver.Chrome()
+
+driver.get("https://www.google.com")
+time.sleep(2)
+
+search_box = driver.find_element(By.NAME, "q")
+search_box.send_keys("Selenium Python tutorial")
+search_box.send_keys(Keys.RETURN)
+
+time.sleep(3)
+print("Page Title:", driver.title)
+
+driver.quit()
+
+
+
+```
 
 ```python
 import pytest
