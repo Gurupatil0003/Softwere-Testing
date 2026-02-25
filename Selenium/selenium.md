@@ -123,6 +123,7 @@ driver.quit()
 
 ```
 
+```python
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -156,6 +157,8 @@ print("Login button enabled:", driver.find_element(By.ID, "loginBtn").is_enabled
 
 time.sleep(5)
 driver.quit()
+```
+
 
 ```python
 
