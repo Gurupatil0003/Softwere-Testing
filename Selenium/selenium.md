@@ -92,7 +92,7 @@ driver.quit()
 
 ```
 
-##small version change
+## small version change
 
 ```python
 <!DOCTYPE html>
@@ -111,7 +111,7 @@ driver.quit()
     <input type="text" id="username" class="form-control mb-2">
 
     <label>Password:</label>
-    <input type="password" id="password" name="password" class="form-control mb-3">
+    <input type="password"  name="password" class="form-control mb-3">
 
     <input type="button" id="loginBtn" value="Login" class="btn btn-primary w-100">
 
@@ -134,18 +134,19 @@ time.sleep(2)
 
 # ---------- send_keys() ----------
 driver.find_element(By.ID, "username").send_keys("Guru")
-driver.find_element(By.ID, "password").send_keys("12345")
+driver.find_element(By.NAME, "password").send_keys("12345")   # CHANGED
 
 time.sleep(2)
 
 # ---------- clear() ----------
-driver.find_element(By.ID, "password").clear()
-driver.find_element(By.ID, "password").send_keys("newpass")
+driver.find_element(By.NAME, "password").clear()              # CHANGED
+driver.find_element(By.NAME, "password").send_keys("newpass") # CHANGED
 
 # ---------- click() ----------
 driver.find_element(By.ID, "loginBtn").click()
 
 # ---------- get_text() ----------
+# Only works if you have <p id="msg">Something</p> in HTML
 text = driver.find_element(By.ID, "msg").text
 print("Message Text:", text)
 
