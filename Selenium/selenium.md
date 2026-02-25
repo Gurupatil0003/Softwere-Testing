@@ -1,4 +1,33 @@
-```html
+```python
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Login</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+
+<form class="bg-white p-4 rounded shadow">
+    <h2 class="text-center mb-3">Login Form</h2>
+
+    <label>Username:</label>
+    <input type="text" id="username" class="form-control mb-2">
+
+    <label>Password:</label>
+    <input type="password" name="password" class="form-control mb-3">
+
+    <input type="button" id="loginBtn" value="Login" class="btn btn-primary w-100">
+</form>
+
+</body>
+</html>
+
+
+```
+```python
 <!DOCTYPE html>
 <html>
 <head>
