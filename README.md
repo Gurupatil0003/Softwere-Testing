@@ -1,5 +1,20 @@
 # 🎯 COMPLETE SYLLABUS: Selenium Automation with Python
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ---
 
 ## 🟢 PHASE 1: Python Fundamentals (Very Important)
