@@ -92,6 +92,70 @@ driver.quit()
 
 ```
 
+##small version change
+
+```python
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+
+<form class="bg-white p-4 rounded shadow">
+    <h2 class="text-center mb-3">Login Form</h2>
+
+    <label>Username:</label>
+    <input type="text" id="username" class="form-control mb-2">
+
+    <label>Password:</label>
+    <input type="password" id="password" name="password" class="form-control mb-3">
+
+    <input type="button" id="loginBtn" value="Login" class="btn btn-primary w-100">
+
+    <p id="msg">Login Successful</p>
+</form>
+
+</body>
+</html>
+
+```
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Chrome()
+driver.get("file:///C:/Users/LENOVO/Desktop/webelement_practice.html")
+time.sleep(2)
+
+# ---------- send_keys() ----------
+driver.find_element(By.ID, "username").send_keys("Guru")
+driver.find_element(By.ID, "password").send_keys("12345")
+
+time.sleep(2)
+
+# ---------- clear() ----------
+driver.find_element(By.ID, "password").clear()
+driver.find_element(By.ID, "password").send_keys("newpass")
+
+# ---------- click() ----------
+driver.find_element(By.ID, "loginBtn").click()
+
+# ---------- get_text() ----------
+text = driver.find_element(By.ID, "msg").text
+print("Message Text:", text)
+
+# ---------- is_displayed() ----------
+print("Username displayed:", driver.find_element(By.ID, "username").is_displayed())
+
+# ---------- is_enabled() ----------
+print("Login button enabled:", driver.find_element(By.ID, "loginBtn").is_enabled())
+
+time.sleep(5)
+driver.quit()
 
 ```python
 
