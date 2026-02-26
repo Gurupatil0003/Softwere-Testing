@@ -333,6 +333,8 @@ def test_saucedemo_order(driver):
     success_text = checkout.get_success_message()
     assert "THANK YOU" in success_text
 ```
+
+```python
 🚀 Why This Structure Is Professional
 
 ✅ Separation of concerns
@@ -340,3 +342,4 @@ def test_saucedemo_order(driver):
 ✅ Easy maintenance
 ✅ Scalable for 100+ test cases
 ✅ Follows Page Object Model (POM)
+```
