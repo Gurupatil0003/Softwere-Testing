@@ -100,72 +100,68 @@ COPY app.py .
 CMD ["python", "app.py"]
 ```
 
+## 🟢 STEP 4 — Build Your Image
 
-### 🟢 STEP 4 — Build Your Image
+Inside the folder run:
 
-##### Inside the folder run:
-```python
+```bash
 docker build -t myapp .
 ```
-#### Check images:
-```python
+
+### 🔍 Check Images
+
+Run:
+
+```bash
 docker images
 ```
 
-#### You should see:
+## 🟢 STEP 5 — Run Container From Your Image
 
-myapp
-
-You just created your own image 🎉
-
-
-#### 🟢 STEP 5 — Run Container From Your Image
-```python
+```bash
 docker run myapp
 ```
-
 Output:
 
 Docker is easy 🚀
 
 That is your container running.
 
-🧠 What Just Happened?
+## 🧠 What Just Happened?
 
-Dockerfile → Blueprint
+- Dockerfile → Blueprint  
+- docker build → Creates image  
+- docker run → Creates container  
 
-docker build → Creates image
-
-docker run → Creates container
-
-Image = Template
+Image = Template  
 Container = Running instance
 
-#### 🟢 STEP 6 — See Containers
-```python
-Running containers:
 
+## 🟢 STEP 6 — See Containers
+
+### Running containers:
+
+```bash
 docker ps
 ```
-```python
 All containers (including stopped):
 
+```python
 docker ps -a
 ```
-### 🟢 STEP 7 — Remove Container
 
-```python
-Find container ID:
+## 🟢 STEP 7 — Remove Container
 
+### Find container ID:
+
+```bash
 docker ps -a
-
+```
 Then:
-
+```python
 docker rm <container_id>
 ```
 ### 🟢 STEP 8 — Remove Image
 ```python
 docker rmi myapp
 ```
-
-
