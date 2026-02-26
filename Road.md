@@ -173,3 +173,170 @@ def test_saucedemo_order(driver):
 
 
 ```
+
+## Professional structure
+
+```python
+conftest.py → browser setup
+
+config.py → test data & URLs
+
+pages/ → Page Object Model (POM)
+
+tests/ → actual test cases
+
+This is industry-level Selenium + PyTest structure 👌
+```
+```python
+✅ Recommended Project Structure
+project/
+│
+├── config.py
+├── conftest.py
+│
+├── pages/
+│   ├── login_page.py
+│   ├── products_page.py
+│   ├── cart_page.py
+│   └── checkout_page.py
+│
+└── tests/
+    └── test_order.py
+```
+### 1️⃣ config.py
+```python
+# config.py
+
+BASE_URL = "https://www.saucedemo.com/"
+
+USERNAME = "standard_user"
+PASSWORD = "secret_sauce"
+
+FIRST_NAME = "Mounesh"
+LAST_NAME = "Goud"
+POSTAL_CODE = "560001"
+```
+### 2️⃣ conftest.py (Browser Setup)
+```python
+# conftest.py
+
+import pytest
+from selenium import webdriver
+
+@pytest.fixture
+def driver():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    yield driver
+    driver.quit()
+```
+### 3️⃣ pages/login_page.py
+```python
+from selenium.webdriver.common.by import By
+import config
+
+class LoginPage:
+
+    def __init__(self, driver):
+        self.driver = driver
+
+    def open(self):
+        self.driver.get(config.BASE_URL)
+
+    def login(self):
+        self.driver.find_element(By.ID, "user-name").send_keys(config.USERNAME)
+        self.driver.find_element(By.ID, "password").send_keys(config.PASSWORD)
+        self.driver.find_element(By.ID, "login-button").click()
+```
+### 4️⃣ pages/products_page.py
+```python
+from selenium.webdriver.common.by import By
+
+class ProductsPage:
+
+    def __init__(self, driver):
+        self.driver = driver
+
+    def add_backpack(self):
+        self.driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
+
+    def add_bike_light(self):
+        self.driver.find_element(By.ID, "add-to-cart-sauce-labs-bike-light").click()
+
+    def go_to_cart(self):
+        self.driver.find_element(By.CLASS_NAME, "shopping_cart_link").click()
+```
+### 5️⃣ pages/cart_page.py
+```python
+from selenium.webdriver.common.by import By
+
+class CartPage:
+
+    def __init__(self, driver):
+        self.driver = driver
+
+    def checkout(self):
+        self.driver.find_element(By.ID, "checkout").click()
+```
+### 6️⃣ pages/checkout_page.py
+```python
+from selenium.webdriver.common.by import By
+import config
+
+class CheckoutPage:
+
+    def __init__(self, driver):
+        self.driver = driver
+
+    def fill_details(self):
+        self.driver.find_element(By.ID, "first-name").send_keys(config.FIRST_NAME)
+        self.driver.find_element(By.ID, "last-name").send_keys(config.LAST_NAME)
+        self.driver.find_element(By.ID, "postal-code").send_keys(config.POSTAL_CODE)
+        self.driver.find_element(By.ID, "continue").click()
+
+    def finish_order(self):
+        self.driver.find_element(By.ID, "finish").click()
+
+    def get_success_message(self):
+        return self.driver.find_element(By.CLASS_NAME, "complete-header").text
+```
+### 7️⃣ tests/test_order.py
+```python
+from pages.login_page import LoginPage
+from pages.products_page import ProductsPage
+from pages.cart_page import CartPage
+from pages.checkout_page import CheckoutPage
+
+
+def test_saucedemo_order(driver):
+
+    login = LoginPage(driver)
+    products = ProductsPage(driver)
+    cart = CartPage(driver)
+    checkout = CheckoutPage(driver)
+
+    # Open & Login
+    login.open()
+    login.login()
+
+    # Add Products
+    products.add_backpack()
+    products.add_bike_light()
+    products.go_to_cart()
+
+    # Checkout
+    cart.checkout()
+    checkout.fill_details()
+    checkout.finish_order()
+
+    # Assertion
+    success_text = checkout.get_success_message()
+    assert "THANK YOU" in success_text
+```
+🚀 Why This Structure Is Professional
+
+✅ Separation of concerns
+✅ Reusable code
+✅ Easy maintenance
+✅ Scalable for 100+ test cases
+✅ Follows Page Object Model (POM)
