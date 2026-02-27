@@ -345,3 +345,94 @@ driver.quit()
 
 
 ```
+
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Chrome()
+driver.get("file:///C:/Users/LENOVO/Downloads/New%20folder%20(49)/g.html")
+time.sleep(2)
+
+# send_keys()
+driver.find_element(By.ID, "username").send_keys("Guru")
+driver.find_element(By.ID, "password").send_keys("new")
+
+time.sleep(1)
+driver.find_element(By.ID, "password").clear()
+driver.find_element(By.ID, "password").send_keys("newpass")
+
+# click()
+driver.find_element(By.ID, "loginBtn").click()
+time.sleep(2)
+
+# get_text()
+text = driver.find_element(By.ID, "msg").text
+print("Message Text:", text)
+
+# is_displayed()
+print("Message displayed:", driver.find_element(By.ID, "msg").is_displayed())
+
+# is_enabled()
+print("Login button enabled:", driver.find_element(By.ID, "loginBtn").is_enabled())
+
+time.sleep(5)
+driver.quit()
+
+
+```
+
+
+```python
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<script>
+function validateLogin() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    let msg = document.getElementById("msg");
+
+    if(username === "Guru" && password === "newpass"){
+        msg.innerHTML = "Login Successful ✅";
+        msg.className = "text-success mt-3 text-center";
+        msg.style.display = "block";
+    } else {
+        msg.innerHTML = "Invalid Credentials ❌";
+        msg.className = "text-danger mt-3 text-center";
+        msg.style.display = "block";
+    }
+}
+</script>
+</head>
+
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+
+<form class="bg-white p-4 rounded shadow" style="width:350px;">
+    <h2 class="text-center mb-3">Login Form</h2>
+
+    <label>Username:</label>
+    <input type="text" id="username" class="form-control mb-2">
+
+    <label>Password:</label>
+    <input type="password" id="password" class="form-control mb-3">
+
+    <input type="button" id="loginBtn" value="Login" 
+           class="btn btn-primary w-100" 
+           onclick="validateLogin()">
+
+    <!-- Hidden initially -->
+    <p id="msg" style="display:none;"></p>
+</form>
+
+</body>
+</html>
+
+
+
+```
