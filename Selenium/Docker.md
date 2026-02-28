@@ -165,3 +165,93 @@ docker rm <container_id>
 ```python
 docker rmi myapp
 ```
+
+```python
+import pytest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+import time
+
+
+# ---------- FIXTURE ----------
+@pytest.fixture
+def driver():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.maximize_window()
+    yield driver
+    driver.quit()
+
+
+# ---------- TEST CASE ----------
+def test_tutorialsninja_order(driver):
+
+    # Open website
+    driver.get("https://tutorialsninja.com/demo/")
+    time.sleep(2)
+
+    # Search for MacBook
+    driver.find_element(By.NAME, "search").send_keys("MacBook")
+    driver.find_element(By.CSS_SELECTOR, "button.btn.btn-default.btn-lg").click()
+    time.sleep(2)
+
+    print("Search Completed")
+
+    # Click first product
+    driver.find_element(By.LINK_TEXT, "MacBook").click()
+    time.sleep(2)
+
+    # Add to cart
+    driver.find_element(By.ID, "button-cart").click()
+    time.sleep(2)
+
+    print("Product Added to Cart")
+
+    # Open cart dropdown
+    driver.find_element(By.ID, "cart-total").click()
+    time.sleep(2)
+
+    driver.find_element(By.XPATH, "//strong[text()='View Cart']").click()
+    time.sleep(2)
+
+    # Assertion
+    product_name = driver.find_element(By.LINK_TEXT, "MacBook").text
+    assert "MacBook" in product_name
+
+    print("Product Verified in Cart")
+
+
+```
+
+
+```python
+
+FROM python:3.10-slim
+
+RUN apt-get update && apt-get install -y chromium chromium-driver
+
+WORKDIR /app
+COPY . .
+
+RUN pip install -r requirements.txt
+
+CMD ["pytest", "-v"]
+```
+
+```python
+
+selenium
+pytest
+```
+
+```python
+docker build -t selenium-wiki .
+
+docker run selenium-wiki
+
+```
