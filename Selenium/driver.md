@@ -137,3 +137,27 @@ def test_google_search(driver):
     # Simple pass assertion
     assert True
 ```
+
+
+```python
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
+
+driver = webdriver.Chrome()
+driver.get("https://www.w3schools.com/")
+
+search = driver.find_element(By.ID, "search2")
+search.send_keys("Python")
+search.send_keys(Keys.RETURN)
+
+time.sleep(2)
+print("Page Title:", driver.title)
+
+driver.quit()
+
+
+
+```
