@@ -162,6 +162,82 @@ driver.quit()
 
 
 ```python
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Selenium Learning Playground</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        function loginFunction() {
+            var user = document.getElementById("username").value;
+            var pass = document.getElementsByName("password")[0].value;
+
+            document.getElementById("output").innerHTML =
+                "Login Clicked! Username: " + user + " | Password: " + pass;
+        }
+
+        function submitFunction() {
+            alert("Submit Button Clicked!");
+        }
+
+        function forgotPassword() {
+            alert("Forgot Password Link Clicked!");
+        }
+    </script>
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow p-4 mx-auto" style="max-width: 500px;">
+        
+        <h2 class="text-center mb-4">🚀 Selenium Beginner Practice Page</h2>
+
+        <!-- Username -->
+        <div class="mb-3">
+            <label class="form-label">Username (ID Locator)</label>
+            <input type="text" id="username" class="form-control" placeholder="Enter Username">
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+            <label class="form-label">Password (Name Locator)</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter Password">
+        </div>
+
+        <!-- Tag Name Example -->
+        <div class="mb-3">
+            <label class="form-label">Tag Name Example Input</label>
+            <input type="text" class="form-control" placeholder="Tag Name Demo">
+        </div>
+
+        <!-- Forgot Password -->
+        <div class="mb-3 text-end">
+            <a href="#" class="link-primary" onclick="forgotPassword()">Forgot Password?</a>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-grid gap-2">
+            <input type="button" id="loginBtn" class="btn btn-primary" value="Login Button" onclick="loginFunction()">
+            <button class="btn btn-success submitBtn" onclick="submitFunction()">Submit</button>
+        </div>
+
+        <!-- Output -->
+        <p id="output" class="mt-3 text-success fw-bold text-center"></p>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+
+```
+
+```python
 
 <!DOCTYPE html>
 <html>
