@@ -512,3 +512,64 @@ function validateLogin() {
 
 
 ```
+
+```python
+from flask import Flask
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+import threading
+
+app = Flask(__name__)
+
+def run_automation():
+    time.sleep(2)  # wait for server to start
+
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.get("https://demoqa.com/automation-practice-form")
+
+    time.sleep(3)
+
+    # Fill First Name
+    driver.find_element(By.ID, "firstName").send_keys("John")
+
+    # Fill Last Name
+    driver.find_element(By.ID, "lastName").send_keys("Doe")
+
+    # Fill Email
+    driver.find_element(By.ID, "userEmail").send_keys("john@example.com")
+
+    # Select Gender
+    driver.find_element(By.XPATH, "//label[text()='Male']").click()
+
+    # Fill Mobile Number
+    driver.find_element(By.ID, "userNumber").send_keys("9876543210")
+
+    time.sleep(2)
+
+    # Scroll Down (important for submit button)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+    time.sleep(2)
+
+    # Click Submit
+    driver.find_element(By.ID, "submit").click()
+
+    time.sleep(5)
+
+    driver.quit()
+
+    print("Automation Completed Successfully ✅")
+
+@app.route("/")
+def home():
+    return "Server Running & Form Automation Executed ✅"
+
+if __name__ == "__main__":
+    threading.Thread(target=run_automation).start()
+    app.run(debug=True)
+
+
+
+```
