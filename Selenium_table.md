@@ -122,3 +122,8 @@ from selenium.webdriver.common.by import By
 
 driver = webdriver.Chrome()
 driver.get("https://example.com")
+
+```
+
+
+https://demoqa.com/automation-practice-form
