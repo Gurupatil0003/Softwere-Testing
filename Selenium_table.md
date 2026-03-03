@@ -1,3 +1,32 @@
+# Selenium Locators and WebElement Names
+
+---
+
+## 🔹 Selenium Locator Names
+
+- ID  
+- Name  
+- Class Name  
+- Tag Name  
+- Link Text  
+- Partial Link Text  
+- CSS Selector  
+- XPath  
+
+---
+
+## 🔹 WebElement Method Names
+
+- click()  
+- send_keys()  
+- clear()  
+- text  
+- get_attribute()  
+- is_displayed()  
+- is_enabled()  
+- is_selected()  
+- submit()  
+
 # Selenium Locators and WebElement Guide (Python)
 
 ---
