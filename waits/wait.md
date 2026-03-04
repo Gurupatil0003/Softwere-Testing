@@ -4,14 +4,71 @@ Selenium waits are used to **pause the execution** until a certain condition is 
 
 ---
 
-| **Wait Type**        | **Scope / Applies To**           | **Purpose / What it Does**                                         | **When to Use**                                  | **Simple Example (Python)** |
-|---------------------|---------------------------------|--------------------------------------------------------------------|-------------------------------------------------|-----------------------------|
-| **Implicit Wait**    | Global (all elements in session) | Waits a maximum time for elements to appear before throwing error | Simple/static pages where elements load quickly | ```python\nfrom selenium import webdriver\ndriver = webdriver.Chrome()\ndriver.implicitly_wait(10)\ndriver.get("https://example.com")\nelement = driver.find_element("id", "submit_button")\nelement.click()\n``` |
-| **Explicit Wait**    | Specific element / condition     | Waits until a certain condition is met for an element             | Dynamic pages, AJAX-loaded content, slow elements | ```python\nfrom selenium.webdriver.common.by import By\nfrom selenium.webdriver.support.ui import WebDriverWait\nfrom selenium.webdriver.support import expected_conditions as EC\nfrom selenium import webdriver\n\ndriver = webdriver.Chrome()\ndriver.get("https://example.com")\nbutton = WebDriverWait(driver, 10).until(\n    EC.element_to_be_clickable((By.ID, "submit_button"))\n)\nbutton.click()\n``` |
-| **Fluent Wait**      | Specific element / condition     | Like Explicit Wait but allows custom polling interval and ignores exceptions | Complex conditions, elements appearing randomly | ```python\nfrom selenium.webdriver.common.by import By\nfrom selenium.webdriver.support.ui import WebDriverWait\nfrom selenium.webdriver.support import expected_conditions as EC\nfrom selenium.common.exceptions import NoSuchElementException\nfrom selenium import webdriver\n\ndriver = webdriver.Chrome()\ndriver.get("https://example.com")\nwait = WebDriverWait(driver, 15, poll_frequency=2, ignored_exceptions=[NoSuchElementException])\nelement = wait.until(\n    EC.presence_of_element_located((By.ID, "my_element"))\n)\nelement.click()\n``` |
-| **No Wait (Default)** | None | Selenium tries to find element immediately, throws `NoSuchElementException` if not found | Fast-loading pages, elements already present | ```python\nfrom selenium import webdriver\ndriver = webdriver.Chrome()\ndriver.get("https://example.com")\nelement = driver.find_element("id", "submit_button")\nelement.click()\n``` |
+| **Wait Type**        | **Scope / Applies To**           | **Purpose / What it Does**                                         | **When to Use**                                  |
+|---------------------|---------------------------------|--------------------------------------------------------------------|-------------------------------------------------|
+| **Implicit Wait**    | Global (all elements in session) | Waits a maximum time for elements to appear before throwing error | Simple/static pages where elements load quickly |
+| **Explicit Wait**    | Specific element / condition     | Waits until a certain condition is met for an element             | Dynamic pages, AJAX-loaded content, slow elements |
+| **Fluent Wait**      | Specific element / condition     | Like Explicit Wait but allows custom polling interval and ignores exceptions | Complex conditions, elements appearing randomly |
+| **No Wait (Default)** | None | Selenium tries to find element immediately, throws `NoSuchElementException` if not found | Fast-loading pages, elements already present |
 
 ---
+
+## ✅ Examples
+
+### 1. Implicit Wait
+```python
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.implicitly_wait(10)  # Wait up to 10 seconds for any element
+driver.get("https://example.com")
+element = driver.find_element("id", "submit_button")
+element.click()
+```
+
+### 2. Explicit Wait
+```python
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+
+# Wait until the button is clickable
+button = WebDriverWait(driver, 10).until(
+    EC.element_to_be_clickable((By.ID, "submit_button"))
+)
+button.click()
+```
+### 3. Fluent Wait
+```python
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+
+# Wait up to 15s, check every 2s, ignore NoSuchElementException
+wait = WebDriverWait(driver, 15, poll_frequency=2, ignored_exceptions=[NoSuchElementException])
+element = wait.until(
+    EC.presence_of_element_located((By.ID, "my_element"))
+)
+element.click()
+```
+### 4. No Wait (Default)
+```python
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+element = driver.find_element("id", "submit_button")
+element.click()
+```
 
 ## 💡 Quick Tips
 
