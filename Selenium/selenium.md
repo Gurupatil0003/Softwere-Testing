@@ -607,3 +607,65 @@ driver.quit()
 
 
 ```
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Chrome()
+driver.maximize_window()
+
+# ✅ Add Implicit Wait (applies globally)
+driver.implicitly_wait(10)   # waits up to 10 seconds for elements
+
+# Open local HTML file
+driver.get("file:///C:/Users/LENOVO/Downloads/New%20folder%20(52)/a.html")
+
+# Upload PDF (⚠ MUST use full absolute path)
+upload = driver.find_element(By.ID, "pdfFile")
+upload.send_keys("C:\\Users\\LENOVO\\Downloads\\New folder (52)\\d.pdf")
+
+# Click Convert
+driver.find_element(By.ID, "convertBtn").click()
+
+# Click Download (implicit wait will handle delay)
+driver.find_element(By.ID, "downloadBtn").click()
+
+time.sleep(3)
+
+driver.quit()
+
+```
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Chrome()
+driver.maximize_window()
+
+# Directly open file using proper file URL
+driver.get("file:///C:/Users/LENOVO/Downloads/New%20folder%20(52)/a.html")
+
+time.sleep(2)
+
+# Upload PDF (FULL ABSOLUTE PATH REQUIRED)
+upload = driver.find_element(By.ID, "pdfFile")
+upload.send_keys("C:\\Users\\LENOVO\\Downloads\\New folder (52)\\d.pdf")
+
+# Click Convert
+driver.find_element(By.ID, "convertBtn").click()
+
+time.sleep(3)
+
+# Click Download
+driver.find_element(By.ID, "downloadBtn").click()
+
+time.sleep(3)
+
+driver.quit()
+
+
+```
