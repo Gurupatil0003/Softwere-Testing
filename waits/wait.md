@@ -1,17 +1,27 @@
 # Selenium Waits Cheat Sheet
 
-Selenium waits are used to **pause the execution** until a certain condition is met or elements are available on a page. There are different types of waits in Selenium:
+Selenium waits are used to **pause the execution** until a certain condition is met or elements are available on a page. Different types of waits have their **pros, drawbacks, and best use cases**.
 
 ---
 
-| **Wait Type**        | **Scope / Applies To**           | **Purpose / What it Does**                                         | **When to Use**                                  |
-|---------------------|---------------------------------|--------------------------------------------------------------------|-------------------------------------------------|
-| **Implicit Wait**    | Global (all elements in session) | Waits a maximum time for elements to appear before throwing error | Simple/static pages where elements load quickly |
-| **Explicit Wait**    | Specific element / condition     | Waits until a certain condition is met for an element             | Dynamic pages, AJAX-loaded content, slow elements |
-| **Fluent Wait**      | Specific element / condition     | Like Explicit Wait but allows custom polling interval and ignores exceptions | Complex conditions, elements appearing randomly |
-| **No Wait (Default)** | None | Selenium tries to find element immediately, throws `NoSuchElementException` if not found | Fast-loading pages, elements already present |
+| **Wait Type**        | **Scope / Applies To**           | **Purpose / What it Does**                                         | **When to Use**                                  | **Drawbacks / Notes** |
+|---------------------|---------------------------------|--------------------------------------------------------------------|-------------------------------------------------|----------------------|
+| **Implicit Wait**    | Global (all elements in session) | Waits a maximum time for elements to appear before throwing error | Simple/static pages where elements load quickly | ❌ Not precise, applies to all elements <br> ❌ Can slow down tests unnecessarily if set too high <br> ✅ Easy to implement |
+| **Explicit Wait**    | Specific element / condition     | Waits until a certain condition is met for an element             | Dynamic pages, AJAX-loaded content, slow elements | ❌ Slightly more code <br> ✅ Precise and reliable <br> ✅ Can wait for clickable, visible, presence, text, etc. |
+| **Fluent Wait**      | Specific element / condition     | Like Explicit Wait but allows custom polling interval and ignores exceptions | Complex conditions, elements appearing randomly | ❌ More verbose code <br> ✅ Maximum control <br> ✅ Can define polling frequency and ignore exceptions |
+| **No Wait (Default)** | None | Selenium tries to find element immediately, throws `NoSuchElementException` if not found | Fast-loading pages, elements already present | ❌ Fails if element is not immediately available <br> ✅ Very fast for simple pages |
 
 ---
+
+## 💡 Quick Tips (CSAT style)
+1. **Implicit Wait** → Use for **simple/static pages**, but avoid for dynamic content.  
+2. **Explicit Wait** → Best choice for **dynamic websites or AJAX content**.  
+3. **Fluent Wait** → Use when elements are **slow or appear randomly**, need custom polling or exception handling.  
+4. **No Wait** → Only for **fast-loading pages** where elements are immediately present.  
+5. **Never mix Implicit and Explicit Waits** → Can cause **unexpected delays**.  
+
+---
+
 
 ## ✅ Examples
 
