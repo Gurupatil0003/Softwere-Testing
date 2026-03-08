@@ -255,3 +255,8 @@ docker build -t selenium-wiki .
 docker run selenium-wiki
 
 ```
+
+```python
+java -jar selenium-server-4.38.0.jar standalone
+
+```
