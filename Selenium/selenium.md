@@ -972,3 +972,133 @@ CMD ["python", "script.py"]
 
 ## requirments.txt
 
+```python
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Selenium Learning Playground</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        function loginFunction() {
+            var user = document.getElementById("username").value;
+            var pass = document.getElementsByName("password")[0].value;
+
+            document.getElementById("output").innerHTML =
+                "Login Clicked! Username: " + user + " | Password: " + pass;
+        }
+
+        function submitFunction() {
+            alert("Submit Button Clicked!");
+        }
+
+        function forgotPassword() {
+            alert("Forgot Password Link Clicked!");
+        }
+    </script>
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow p-4 mx-auto" style="max-width: 500px;">
+        
+        <h2 class="text-center mb-4">🚀 Selenium Beginner Practice Page</h2>
+
+        <!-- Username -->
+        <div class="mb-3">
+            <label class="form-label">Username (ID Locator)</label>
+            <input type="text" id="username" class="form-control" placeholder="Enter Username">
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+            <label class="form-label">Password (Name Locator)</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter Password">
+        </div>
+
+        <!-- Tag Name Example -->
+        <div class="mb-3">
+            <label class="form-label">Tag Name Example Input</label>
+            <input type="text" class="form-control" placeholder="Tag Name Demo">
+        </div>
+
+        <!-- Forgot Password -->
+        <div class="mb-3 text-end">
+            <a href="#" class="link-primary" onclick="forgotPassword()">Forgot Password?</a>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-grid gap-2">
+            <input type="button" id="loginBtn" class="btn btn-primary" value="Login Button" onclick="loginFunction()">
+            <button class="btn btn-success submitBtn" onclick="submitFunction()">Submit</button>
+        </div>
+
+        <!-- Output -->
+        <p id="output" class="mt-3 text-success fw-bold text-center"></p>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+```
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.alert import Alert
+import time
+
+driver = webdriver.Chrome()
+
+driver.get("file:///C:/Users/LENOVO/Downloads/New%20folder%20(57)/a.html")
+time.sleep(2)
+
+# ID Locator
+driver.find_element(By.ID, "username").send_keys("Guru")
+
+# NAME Locator
+driver.find_element(By.NAME, "password").send_keys("12345")
+
+# TAG NAME Locator
+driver.find_elements(By.TAG_NAME, "input")[2].send_keys("Tag Example")
+
+# LINK TEXT
+driver.find_element(By.LINK_TEXT, "Forgot Password?").click()
+time.sleep(2)
+
+alert = Alert(driver)
+print("Alert:", alert.text)
+alert.accept()
+
+# XPATH Locator (FIXED)
+driver.find_element(By.XPATH, "//button[contains(@class,'submitBtn')]").click()
+time.sleep(2)
+
+alert = Alert(driver)
+print("Alert:", alert.text)
+alert.accept()
+
+# CSS SELECTOR
+driver.find_element(By.CSS_SELECTOR, ".submitBtn").click()
+time.sleep(2)
+
+alert = Alert(driver)
+alert.accept()
+
+# LOGIN BUTTON
+driver.find_element(By.ID, "loginBtn").click()
+
+print("✅ All Selenium Locators Executed Successfully")
+
+time.sleep(5)
+driver.quit()
+
+```
+
