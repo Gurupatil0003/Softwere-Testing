@@ -343,3 +343,36 @@ def test_saucedemo_order(driver):
 ✅ Scalable for 100+ test cases
 ✅ Follows Page Object Model (POM)
 ```
+
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+driver = webdriver.Chrome()
+driver.get("https://www.demoblaze.com/")
+
+time.sleep(3)
+
+driver.find_element(By.LINK_TEXT, "Laptops").click()
+time.sleep(3)
+
+products = driver.find_elements(By.CLASS_NAME, "card")
+
+prices = []
+
+for p in products:
+    name = p.find_element(By.CLASS_NAME, "hrefch").text
+    price = p.find_element(By.TAG_NAME, "h5").text
+    print(name, "-", price)
+    
+    prices.append(int(price.replace("$","")))
+
+print("Min price:", min(prices))
+print("Max price:", max(prices))
+
+driver.quit()
+
+
+```
