@@ -329,3 +329,88 @@ git log --oneline
 ---
 
 # 📌 End of Git Reference
+
+
+
+## Minimal Commands to Create Left Side Green Branch
+
+### 1️⃣ Start repo (A → B)
+
+git init
+
+echo "A" > v.py
+git add .
+git commit -m "A"
+
+echo "B" >> v.py
+git commit -am "B"
+
+---
+
+### 2️⃣ Create left branch from A (this creates the green line)
+
+git switch -c left-branch HEAD~1
+echo "left work" >> v.py
+git commit -am "left branch work"
+
+---
+
+### 3️⃣ Go back to main and continue normal commits
+
+git switch master
+echo "C" >> v.py
+git commit -am "C"
+
+---
+
+### 4️⃣ Merge left branch later
+
+git merge left-branch
+
+---
+
+### 5️⃣ View Graph
+
+Open Command Palette:
+
+Ctrl + Shift + P
+
+Search:
+
+Git Graph: View Git Graph
+
+
+## Create a Left-Side Green Branch
+
+### 1️⃣ Go to commit B
+
+git checkout HEAD~3
+
+*(HEAD~3 means go 3 commits back — adjust if needed.)*
+
+---
+
+### 2️⃣ Create a new branch there
+
+git switch -c green-branch
+
+---
+
+### 3️⃣ Add a commit
+
+echo "green branch work" >> v.py
+git add .
+git commit -m "green branch commit"
+
+---
+
+### 4️⃣ Return to master
+
+git switch master
+
+---
+
+## Resulting Graph
+
+In Git Graph you will see something like:
+
