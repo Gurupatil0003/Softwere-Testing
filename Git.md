@@ -531,3 +531,80 @@ A --- B --- C
             merge
 ```
 
+
+# Create a Left-Side Green Branch in Git Graph
+
+This example shows how to create a **left-side green branch** from an earlier commit in the Git history.
+
+---
+
+## 1️⃣ Go to Commit B
+
+```bash
+git checkout HEAD~3
+```
+
+`HEAD~3` means **move 3 commits back** from the current commit.  
+Adjust the number if your commit history is different.
+
+---
+
+## 2️⃣ Create a New Branch
+
+```bash
+git switch -c green-branch
+```
+
+This creates a **new branch starting from commit B**.
+
+---
+
+## 3️⃣ Add a Commit to the New Branch
+
+```bash
+echo "green branch work" >> v.py
+git add .
+git commit -m "green branch commit"
+```
+
+This commit will appear on the **left side in the Git Graph**.
+
+---
+
+## 4️⃣ Return to Master Branch
+
+```bash
+git switch master
+```
+
+---
+
+# Expected Git Graph Structure
+
+```
+      green-branch
+      /
+A --- B --- C ----------- M
+       \                /
+        feature2 ------
+              \
+               small-branch
+```
+
+In **VS Code Git Graph extension**, this will appear as a **colored graph with a green branch on the left side**.
+
+---
+
+# View Git Graph in VS Code
+
+Open **Command Palette**
+
+```
+Ctrl + Shift + P
+```
+
+Search:
+
+```
+Git Graph: View Git Graph
+```
