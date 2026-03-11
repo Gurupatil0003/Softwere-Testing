@@ -608,3 +608,125 @@ Search:
 ```
 Git Graph: View Git Graph
 ```
+
+
+# Git Graph Example with Left Branch, Right Branch, and Small Fix Branch
+
+This example demonstrates how to create:
+
+- A **left-side branch (green-branch)**
+- A **right-side feature branch (feature2)**
+- A **small fix branch from feature2**
+- Multiple merges into the master branch
+
+---
+
+# Step-by-Step Commands
+
+## 1️⃣ Start Repository
+
+```bash
+git init
+
+echo "A" > v.py
+git add .
+git commit -m "A"
+
+echo "B" >> v.py
+git commit -am "B"
+```
+
+---
+
+## 2️⃣ Create LEFT Branch
+
+```bash
+git switch -c green-branch
+
+echo "green work" >> v.py
+git commit -am "green branch"
+```
+
+---
+
+## 3️⃣ Continue Work on Master
+
+```bash
+git switch master
+
+echo "C" >> v.py
+git commit -am "C"
+```
+
+---
+
+## 4️⃣ Create Right Branch
+
+```bash
+git switch -c feature2 HEAD~1
+
+echo "feature2 work" >> v.py
+git commit -am "feature2"
+```
+
+---
+
+## 5️⃣ Create Small Branch from Feature2
+
+```bash
+git switch -c small-branch
+
+echo "small fix" >> v.py
+git commit -am "small fix"
+```
+
+---
+
+## 6️⃣ Merge Small Branch into Feature2
+
+```bash
+git switch feature2
+git merge small-branch
+```
+
+---
+
+## 7️⃣ Final Merges into Master
+
+```bash
+git switch master
+git merge green-branch
+git merge feature2
+```
+
+---
+
+# Expected Git Graph Structure
+
+```
+      green-branch
+      /
+A --- B --- C ----------- M
+       \                /
+        feature2 ------
+              \
+               small-branch
+```
+
+In **VS Code Git Graph extension**, this will appear as a **colorful graph showing left and right branches merging into master**.
+
+---
+
+# View Git Graph in VS Code
+
+Open **Command Palette**
+
+```
+Ctrl + Shift + P
+```
+
+Search:
+
+```
+Git Graph: View Git Graph
+```
