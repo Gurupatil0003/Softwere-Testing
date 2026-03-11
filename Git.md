@@ -330,12 +330,137 @@ git log --oneline
 
 # 📌 End of Git Reference
 
+# Git Branch Visualization Example
 
 
-## Minimal Commands to Create Left Side Green Branch
 
-### 1️⃣ Start repo (A → B)
+# Git Graph Example with Left and Right Branches
 
+This example demonstrates how to create **left and right branches** and visualize them using **Git Graph in VS Code**.
+
+---
+
+# Step-by-Step Commands
+
+## 1️⃣ Start Repository
+
+```bash
+git init
+
+echo "start" > v.py
+git add .
+git commit -m "c1 start"
+```
+
+---
+
+## 2️⃣ Create LEFT Branch
+
+```bash
+git switch -c feature-left
+
+echo "left work" >> v.py
+git add .
+git commit -m "c2 left work"
+```
+
+---
+
+## 3️⃣ Back to Master and Create RIGHT Branch
+
+```bash
+git switch master
+git switch -c feature-right
+
+echo "right work" > a.py
+git add .
+git commit -m "c3 right work"
+```
+
+---
+
+## 4️⃣ Create Small Branch from Right
+
+```bash
+git switch -c small-fix
+
+echo "small fix" >> a.py
+git add .
+git commit -m "c4 small fix"
+```
+
+---
+
+## 5️⃣ Merge Small Branch into Right Branch
+
+```bash
+git switch feature-right
+git merge small-fix
+```
+
+---
+
+## 6️⃣ Merge Branches into Master
+
+```bash
+git switch master
+git merge feature-left
+git merge feature-right
+```
+
+---
+
+# Git Graph Structure
+
+```
+*   Merge feature-right
+|\
+| * small-fix
+| * feature-right
+|/
+*   Merge feature-left
+|\
+| * feature-left
+|/
+* c1 start
+```
+
+In **VS Code Git Graph extension**, this will appear as a **colorful graph with left and right branches**.
+
+---
+
+# ⭐ Pro Tip (Better Looking Graph)
+
+Add one more commit before merging to make the branch lines **longer and clearer**.
+
+```bash
+git commit -m "update feature"
+```
+
+---
+
+# View Graph in VS Code
+
+Open **Command Palette**
+
+```
+Ctrl + Shift + P
+```
+
+Search:
+
+```
+Git Graph: View Git Graph
+```
+
+
+This guide shows how to create a **left-side branch (green line)** in the Git graph.
+
+---
+
+## 1️⃣ Start Repository (Commits A → B)
+
+```bash
 git init
 
 echo "A" > v.py
@@ -344,73 +469,65 @@ git commit -m "A"
 
 echo "B" >> v.py
 git commit -am "B"
+```
 
 ---
 
-### 2️⃣ Create left branch from A (this creates the green line)
+## 2️⃣ Create Left Branch from Commit A
 
+This creates the **left branch (green line)** in the Git graph.
+
+```bash
 git switch -c left-branch HEAD~1
+
 echo "left work" >> v.py
 git commit -am "left branch work"
+```
 
 ---
 
-### 3️⃣ Go back to main and continue normal commits
+## 3️⃣ Go Back to Main Branch and Continue
 
+```bash
 git switch master
+
 echo "C" >> v.py
 git commit -am "C"
+```
 
 ---
 
-### 4️⃣ Merge left branch later
+## 4️⃣ Merge Left Branch
 
+```bash
 git merge left-branch
+```
 
 ---
 
-### 5️⃣ View Graph
+## 5️⃣ View Git Graph in VS Code
 
-Open Command Palette:
+Open **Command Palette**
 
+```
 Ctrl + Shift + P
+```
 
-Search:
+Search for:
 
+```
 Git Graph: View Git Graph
-
-
-## Create a Left-Side Green Branch
-
-### 1️⃣ Go to commit B
-
-git checkout HEAD~3
-
-*(HEAD~3 means go 3 commits back — adjust if needed.)*
+```
 
 ---
 
-### 2️⃣ Create a new branch there
+## Expected Git Graph
 
-git switch -c green-branch
-
----
-
-### 3️⃣ Add a commit
-
-echo "green branch work" >> v.py
-git add .
-git commit -m "green branch commit"
-
----
-
-### 4️⃣ Return to master
-
-git switch master
-
----
-
-## Resulting Graph
-
-In Git Graph you will see something like:
+```
+      left branch work
+           /
+A --- B --- C
+           \
+            merge
+```
 
