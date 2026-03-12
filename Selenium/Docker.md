@@ -260,3 +260,43 @@ docker run selenium-wiki
 java -jar selenium-server-4.38.0.jar standalone
 
 ```
+
+```python
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+
+driver = webdriver.Chrome(options=options)
+
+driver.get("https://www.wikipedia.org")
+
+print(driver.title)
+driver.quit()
+```
+
+```python
+FROM selenium/standalone-chrome
+
+WORKDIR /app
+COPY . /app
+
+RUN pip3 install selenium
+
+CMD ["python3","script.py"]
+```
+
+
+```python
+
+docker build -t selenium-test .
+```
+
+```python
+
+docker run selenium-test 
+```
