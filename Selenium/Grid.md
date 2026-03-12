@@ -251,3 +251,69 @@ for opt in [ChromeOptions(), EdgeOptions()]:
 print("Automation Completed Successfully")
 
 ```
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.edge.options import Options as EdgeOptions
+import threading
+import time
+import os
+
+GRID_URL = "http://localhost:4444"
+
+
+def run_test(browser):
+
+    if browser == "chrome":
+        driver = webdriver.Remote(
+            command_executor=GRID_URL,
+            options=ChromeOptions()
+        )
+
+    elif browser == "edge":
+        driver = webdriver.Remote(
+            command_executor=GRID_URL,
+            options=EdgeOptions()
+        )
+
+
+    html_file = "file://" + os.path.abspath("index.html")
+    driver.get(html_file)
+
+    time.sleep(2)
+
+    upload = driver.find_element(By.ID, "pdfFile")
+    upload.send_keys(os.path.abspath("d.pdf"))
+
+    time.sleep(1)
+
+    convert_btn = driver.find_element(By.ID, "convertBtn")
+    convert_btn.click()
+
+    time.sleep(3)
+
+    download_btn = driver.find_element(By.ID, "downloadBtn")
+    download_btn.click()
+
+    time.sleep(1)
+
+    driver.quit()
+
+
+# Create threads
+chrome_thread = threading.Thread(target=run_test, args=("chrome",))
+edge_thread = threading.Thread(target=run_test, args=("edge",))
+
+# Start both browsers simultaneously
+chrome_thread.start()
+edge_thread.start()
+
+# Wait for both to finish
+chrome_thread.join()
+edge_thread.join()
+
+print("Automation Completed Successfully")
+
+```
