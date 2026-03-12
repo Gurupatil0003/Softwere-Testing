@@ -222,3 +222,32 @@ print("Automation Completed Successfully")
 ```python
 java -jar selenium-server-4.41.0.jar
 ```
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.edge.options import Options as EdgeOptions
+import threading, time, os
+
+GRID_URL = "http://localhost:4444"
+
+def run_test(option):
+    driver = webdriver.Remote(command_executor=GRID_URL, options=option)
+
+    driver.get("file://" + os.path.abspath("index.html"))
+    time.sleep(2)
+
+    driver.find_element(By.ID,"pdfFile").send_keys(os.path.abspath("d.pdf"))
+    driver.find_element(By.ID,"convertBtn").click()
+    time.sleep(3)
+    driver.find_element(By.ID,"downloadBtn").click()
+
+    driver.quit()
+
+for opt in [ChromeOptions(), EdgeOptions()]:
+    threading.Thread(target=run_test, args=(opt,)).start()
+
+print("Automation Completed Successfully")
+
+```
