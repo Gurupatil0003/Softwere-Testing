@@ -2,6 +2,30 @@
 
 ---
 
+
+## Docdker install 
+
+#### Open Powershell as Administaritor
+
+```python
+
+
+##run this cmd
+
+wsl --installl
+
+```
+
+ ## Goo to docker website click the link below 
+
+https://docs.docker.com/desktop/setup/install/windows-install/
+
+choose the Docker Desktop for Windows - x86_64
+
+
+
+ 
+
 ## 🧱 STEP 0 — Check Docker Is Installed
 
 Open terminal and run:
@@ -256,9 +280,9 @@ docker run selenium-wiki
 
 ```
 
-```python
-java -jar selenium-server-4.38.0.jar standalone
 
+
+## today docker code for wikipedia
 ```
 
 ```python
