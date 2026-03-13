@@ -112,7 +112,10 @@
 
 
 ```
+```python
 
+java -jar selenium-server-4.41.0.jar standalone
+```
 
 
 ```python
