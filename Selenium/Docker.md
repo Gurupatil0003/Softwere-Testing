@@ -23,6 +23,10 @@ https://docs.docker.com/desktop/setup/install/windows-install/
 choose the Docker Desktop for Windows - x86_64
 
 
+0
+# After that u can work on the below commands
+
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
  
 
