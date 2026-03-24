@@ -328,3 +328,28 @@ docker build -t selenium-test .
 
 docker run selenium-test 
 ```
+
+
+```python
+age=int(input("Enter your age :"))
+
+if age>=18:
+    print("vote eligibleyujhivkuvuigiu")
+else:
+    print("no wait untill 18")
+
+
+```
+
+```python
+FROM python:3.10-slim
+
+WORKDIR /app 
+
+COPY app.py .
+
+CMD [ "python" ,"app.py"]
+
+
+
+```
